@@ -8,4 +8,12 @@
 <form action="/FileTest/" method="post" enctype="multipart/form-data">
     <input type="file" name="Document" /><br />
     <input type="submit" name="Submit" id="Submit" value="Upload" />
+
+    @foreach (var f in ViewBag.Files)
+    {
+        <p>
+            <strong>@f.ToString() | </strong>
+            @Html.ActionLink("Get", "Get", "FileTest", new { fileName = @f.ToString() }, null)
+        </p>
+    }
 </form>

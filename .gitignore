@@ -259,3 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Converter/uploads/38477555-4dd5-49c6-8b6f-c502854852ac
