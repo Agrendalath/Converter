@@ -6,9 +6,14 @@
 <h2>Choose file to convert.</h2>
 
 <form action="/Convert/" method="post" enctype="multipart/form-data">
-    <input type="file" name="Document" /><br />
-    <input type="submit" name="Submit" id="Submit" value="Upload" />
+    <div class="form-group">
+        <input type="file" class="form-control-file" name="Document" />
+    </div>
+    <button type="submit"" class="btn btn-primary">Upload</button>
 </form>
+<br /><br />
+
+<h3>Your files</h3>
 
 <table class="table">
     @foreach (var f in ViewBag.Files)

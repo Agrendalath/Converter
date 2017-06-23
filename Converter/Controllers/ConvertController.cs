@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using Spire.Doc;
 using Spire.Doc.Documents;
 using Microsoft.AspNet.Identity;
-//using Spire.Pdf;
 
 namespace Converter.Controllers
 {
