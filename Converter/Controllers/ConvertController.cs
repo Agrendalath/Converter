@@ -52,6 +52,22 @@ namespace Converter.Controllers
             }
         }
 
+        public ActionResult Show(string fileName)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/" + User.Identity.GetUserId().ToString() + "/";
+            try
+            {
+                if (fileName.Contains(".."))
+                    throw new IOException();
+
+                return new FileStreamResult(new FileStream(path + fileName, FileMode.Open, FileAccess.Read), "application/pdf");
+            }
+            catch (IOException)
+            {
+                throw new HttpException(404, "File not found.");
+            }
+        }
+
         public ActionResult Delete(string fileName)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/" + User.Identity.GetUserId().ToString() + "/" + fileName;

@@ -23,7 +23,13 @@
                 <strong>@f.ToString()</strong>
             </td>
             <td>
-                @Html.ActionLink("Get", "Get", "Convert", new { fileName = @f.ToString() }, null)
+                @if (@f.ToString().EndsWith(".pdf"))
+                {
+                    @Html.ActionLink("View", "Show", "Convert", new { fileName = @f.ToString() }, null)
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Download", "Get", "Convert", new { fileName = @f.ToString() }, null)
             </td>
             <td>
                 <span onclick="return confirm('Are you sure to delete?')"><a href="/Convert/Delete?fileName=@f.ToString()" class="delLink" style="color:red;">Delete</a></span>
