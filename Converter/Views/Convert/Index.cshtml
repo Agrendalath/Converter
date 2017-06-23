@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Convert";
+}
+
+<h2>Choose file to convert.</h2>
+
+<form action="/Convert/" method="post" enctype="multipart/form-data">
+    <input type="file" name="Document" /><br />
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+</form>
+
+<table class="table">
+    @foreach (var f in ViewBag.Files)
+    {
+        <tr>
+            <td>
+                <strong>@f.ToString()</strong>
+            </td>
+            <td>
+                @Html.ActionLink("Get", "Get", "Convert", new { fileName = @f.ToString() }, null)
+            </td>
+            <td>
+                <span onclick="return confirm('Are you sure to delete?')"><a href="/Convert/Delete?fileName=@f.ToString()" class="delLink" style="color:red;">Delete</a></span>
+            </td>
+        </tr>
+    }
+</table>

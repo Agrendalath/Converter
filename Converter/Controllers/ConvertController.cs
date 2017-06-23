@@ -12,9 +12,8 @@ using Microsoft.AspNet.Identity;
 namespace Converter.Controllers
 {
     [Authorize]
-    public class FileTestController : Controller
+    public class ConvertController : Controller
     {
-        // GET: FileTest
         public ActionResult Index()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/" + User.Identity.GetUserId().ToString();
@@ -45,10 +44,25 @@ namespace Converter.Controllers
             {
                 return File(new FileStream(path + fileName, FileMode.Open), "text/plain", fileName);
             }
-            catch (IOException e)
+            catch (IOException)
             {
-                return null;
+                throw new HttpException(404, "File not found.");
             }
+        }
+
+        public ActionResult Delete(string fileName)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/" + User.Identity.GetUserId().ToString() + "/" + fileName;
+            try
+            {
+                System.IO.File.Delete(path);
+            }
+            catch (IOException)
+            {
+                throw new HttpException(404, "File not found.");
+            }
+            
+            return RedirectToAction("Index");
         }
     }
 }
