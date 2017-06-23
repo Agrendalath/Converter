@@ -20,7 +20,7 @@ namespace Converter.Controllers
 
             foreach (string upload in Request.Files)
             {
-                if (Request.Files[upload].ContentLength == 0)
+                if (Request.Files[upload].ContentLength == 0 || Request.Files[upload].FileName.Contains(".."))
                     continue;
 
                 string filename = Path.GetFileName(Request.Files[upload].FileName);
@@ -41,6 +41,9 @@ namespace Converter.Controllers
             string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/" + User.Identity.GetUserId().ToString() + "/";
             try
             {
+                if (fileName.Contains(".."))
+                    throw new IOException();
+
                 return File(new FileStream(path + fileName, FileMode.Open), "text/plain", fileName);
             }
             catch (IOException)
@@ -54,6 +57,9 @@ namespace Converter.Controllers
             string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/" + User.Identity.GetUserId().ToString() + "/" + fileName;
             try
             {
+                if (fileName.Contains(".."))
+                    throw new IOException();
+
                 System.IO.File.Delete(path);
             }
             catch (IOException)
